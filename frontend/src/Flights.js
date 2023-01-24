@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import ReactTable from 'react-table';
+import 'bulma/css/bulma.css';
 
 function Flights() {
     // State variable to store the API data
@@ -8,15 +9,22 @@ function Flights() {
     // State variable to track if the data is being fetched
     const [isLoading, setIsLoading] = useState(false);
     // API key
-    const apiKey = `2c055a4d38d94561f952c823a8538223`;
-
+   // const apiKey = `2c055a4d38d94561f952c823a8538223`;
+    const [flights, setFlights] = useState([
+        {flight_number: "AC442",
+        departure_airport_code: "CYYZ", 
+        arrival_airport_code: "CYOW",
+        departure_time: "09:15 JAN.24",
+        arrival_time: "0"}
+    ])
     // Function to fetch the data from the API
     const fetchData = () => {
         setIsLoading(true);
-        axios.get(`http://api.aviationstack.com/v1/flights?access_key=2c055a4d38d94561f952c823a8538223&dep_iata=YOW&arr_iata=YOW`)
+        axios.get(`http://api.aviationstack.com/v1/flights?access_key=2c055a4d38d94561f952c823a8538223`)
         .then(response => {
-            setData(response.data.flights);
+            setData(response.data);
             setIsLoading(false);
+            
         })
         .catch(error => {
             console.log(error);
@@ -48,17 +56,24 @@ function Flights() {
         }
     ];
 
+    //Bulma CSS Styling
     return (
-        <div>
-            <button onClick={fetchData} disabled={isLoading}>
-                {isLoading ? 'Loading...' : 'Fetch Data'}
-            </button>
-            {data && (
-                <ReactTable 
-                    data={data} 
-                    columns={columns} 
-                />
-            )}
+        <div className="container">
+            <div className="level">
+                <div className="level-left"></div>
+                    <button className="button is-primary" onClick={fetchData} disabled={isLoading}>
+                        {isLoading ? 'Loading...' : 'Display Flights to/from YOW'}
+                    </button>
+                </div>
+                <div className="box">
+                {data && (
+                    <ReactTable 
+                        data={data} 
+                        columns={columns} 
+                        className="table is-striped is-hoverable is-fullwidth"
+                    />
+                )}
+            </div>
         </div>
     );
 }
