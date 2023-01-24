@@ -10,13 +10,13 @@ function Flights() {
     const [isLoading, setIsLoading] = useState(false);
     // API key
    // const apiKey = `2c055a4d38d94561f952c823a8538223`;
-    const [flights, setFlights] = useState([
-        {flight_number: "AC442",
-        departure_airport_code: "CYYZ", 
-        arrival_airport_code: "CYOW",
-        departure_time: "09:15 JAN.24",
-        arrival_time: "0"}
-    ])
+    /*const [data, setData] = useState([
+        {flight_number: "AC442"},
+        {departure_airport_code: "CYYZ"}, 
+        {arrival_airport_code: "CYOW"},
+        {departure_time: "09:15 JAN.24"},
+        {arrival_time: "0"}
+    ])*/
     // Function to fetch the data from the API
     const fetchData = () => {
         setIsLoading(true);
@@ -70,7 +70,7 @@ function Flights() {
                     <ReactTable 
                         data={data} 
                         columns={columns} 
-                        className="table is-striped is-hoverable is-fullwidth"
+                        //className="table is-striped is-hoverable is-fullwidth"
                     />
                 )}
             </div>
